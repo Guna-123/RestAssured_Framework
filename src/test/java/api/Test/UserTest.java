@@ -9,17 +9,17 @@ import org.testng.annotations.Test;
 
 import com.github.javafaker.Faker;
 
-import api.Endpoints.User_Endpoints2;
+import api.Endpoints.User_Endpoints;
 import api.Payload.User;
 import io.restassured.response.Response;
 
-public class UserTestclass2 {
+public class UserTest {
 	Faker faker ;
 	User userPayload ;
 	public Logger logger ;
 	
 	@BeforeClass
-	public void setup_TestData() {
+	public void test_setup_TestData() {
 		faker=new Faker();
 		userPayload=new User();
 		
@@ -38,9 +38,9 @@ public class UserTestclass2 {
 	
 	
 	@Test (priority = 1)
-	public void Test_createUser() {
+	public void test_createUser() {
 		logger.info("*********** Creating User *************");
-		Response r =User_Endpoints2.create_User(userPayload);
+		Response r =User_Endpoints.create_User(userPayload);
 		r.then().log().all();
 		r.then().log().body();
 		
@@ -50,12 +50,12 @@ public class UserTestclass2 {
 	}
 	
 	@Test (priority = 2)
-	public void Test_GetUser() {
+	public void test_GetUser() {
 		logger.info("***********  Getting User Details *************");
 
-//		Response r =User_Endpoints2.get_User(this.userPayload.getUsername());
+//		Response r =User_Endpoints.get_User(this.userPayload.getUsername());
 
-		Response r =User_Endpoints2.get_User(userPayload.getUsername());
+		Response r =User_Endpoints.get_User(userPayload.getUsername());
 		r.then().log().all();
 //		r.statusCode();
 		Assert.assertEquals(r.getStatusCode(), 200);
@@ -63,7 +63,7 @@ public class UserTestclass2 {
 
 	}
 	@Test (priority = 3)
-	public void Test_UpdateUser() {
+	public void test_UpdateUser() {
 		logger.info("*********** Updating User  Details *************");
 
 //		Update data using PayLoad
@@ -71,13 +71,13 @@ public class UserTestclass2 {
 		userPayload.setLastName(faker.name().lastName());
 		userPayload.setEmail(faker.internet().safeEmailAddress());
 		
-		Response r =User_Endpoints2.update_User(userPayload, userPayload.getUsername());
+		Response r =User_Endpoints.update_User(userPayload, userPayload.getUsername());
 		r.then().log().body().statusCode(200);  // CHAI Assertion
 
 		Assert.assertEquals(r.getStatusCode(), 200);
 		
 		//Checking data after Update
-		Response responseAfterUpdate =User_Endpoints2.get_User(userPayload.getUsername());
+		Response responseAfterUpdate =User_Endpoints.get_User(userPayload.getUsername());
 		responseAfterUpdate.then().log().all();
 
 		Assert.assertEquals(r.getStatusCode(), 200); 
@@ -85,10 +85,10 @@ public class UserTestclass2 {
 
 	}
 	@Test (priority = 4)
-	public void Test_DeleteUser() { 
+	public void test_DeleteUser() { 
 		logger.info("*********** deleting User  Details *************");
 
-		Response r =User_Endpoints2.delete_User(userPayload.getUsername());
+		Response r =User_Endpoints.delete_User(userPayload.getUsername());
 		r.then().log().all();
 		Assert.assertEquals(r.getStatusCode(), 200);
 		logger.info("***********  User  Details Deleted *************");

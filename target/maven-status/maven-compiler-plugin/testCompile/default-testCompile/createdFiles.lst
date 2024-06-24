@@ -3,8 +3,6 @@ api\Endpoints\User_Endpoints2.class
 api\Utilities\DataProviders.class
 api\Endpoints\User_Endpoints.class
 api\Payload\User.class
-api\Test\UserTestclass2.class
 api\Endpoints\Routes.class
-api\Test\UserTestclass.class
 api\Test\DataDrivenTest.class
 api\Utilities\ExtentReportManager.class
